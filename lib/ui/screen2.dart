@@ -113,7 +113,7 @@ class _screen2State extends State<screen2> {
                           width: 150,
                           color: Colors.black,
                           child: Image.network(
-                              "${search.data![index].logo.toString()}")),
+                              "{search.data![index].logo.toString()}")),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

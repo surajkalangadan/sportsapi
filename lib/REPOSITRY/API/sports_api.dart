@@ -4,6 +4,7 @@ import 'package:sports/REPOSITRY/MODELCLASS/Managermodel.dart';
 import 'package:sports/REPOSITRY/MODELCLASS/Search1model.dart';
 import 'package:sports/REPOSITRY/MODELCLASS/Sportsmodel.dart';
 import 'package:sports/REPOSITRY/MODELCLASS/searchmodel.dart';
+import '../../ui/screen2.dart';
 import 'api_claint.dart';
 
 class Sportsapi {
@@ -33,9 +34,9 @@ class Sportsapi {
 
     return Managermodel.fromJson(jsonDecode(response.body));
   }
-  Future<Search1model> postsearch1model() async {g
+  Future<Search1model> postsearch1model(String message) async {
     String trendingpath =
-        'https://sportscore1.p.rapidapi.com/managers/search?page=1&name=Mikel&sport_id=1&nationality_code=ESP&locale=en';
+        'https://sportscore1.p.rapidapi.com/managers/search?page=1&name=$message&nationality_code=ESP&locale=en';
     var body = {};
     Response response = await apiClient.invokeAPI(trendingpath, 'POST1', body);
 

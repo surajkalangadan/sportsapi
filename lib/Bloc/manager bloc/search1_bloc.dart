@@ -1,4 +1,4 @@
-import 'dart:async';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -14,10 +14,10 @@ class Search1Bloc extends Bloc<Search1Event, Search1State> {
   Sportsapi sportsapi = Sportsapi();
 
   Search1Bloc() : super(Search1Initial()) {
-    on<Fetchmanager>((event, emit) async {
+    on<Fetchsearch1>((event, emit) async {
       emit(Search1Loading());
       try {
-        search1model = await sportsapi.postsearch1model();
+        search1model = await sportsapi.postsearch1model(event.message);
         emit(Search1Loaded());
       } catch (e) {
         print(e);

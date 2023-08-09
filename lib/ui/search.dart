@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sports/REPOSITRY/MODELCLASS/Managermodel.dart';
-import 'package:sports/ui/search.dart';
+import 'package:sports/Bloc/manager%20bloc/search1_bloc.dart';
+import 'package:sports/REPOSITRY/MODELCLASS/Search1model.dart';
 
-import '../Bloc/manager bloc/mnager_bloc.dart';
-
-class manager extends StatefulWidget {
-  const manager({super.key});
+class search extends StatefulWidget {
+  const search({super.key});
 
   @override
-  State<manager> createState() => _managerState();
+  State<search> createState() => _searchState();
 }
+late Search1model search1;
+TextEditingController b = TextEditingController();
+List<String> message = [];
 
-late Managermodel managername;
-
-class _managerState extends State<manager> {
-  @override
-  void initState() {
-    BlocProvider.of<ManagerBloc>(context).add(Fetchmanager());
-    super.initState();
-  }
-
+class _searchState extends State<search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,37 +34,45 @@ class _managerState extends State<manager> {
           width: 350,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20), color: Colors.grey),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (CTX) => search()));
+          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Container(
+              height: 50,
+              width: 300,
+              color: Colors.grey,
+              child: TextFormField(controller: b,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  prefix: GestureDetector(onTap: () {
+                BlocProvider.of<Search1Bloc>(context)
+                    .add(Fetchsearch1(message: b.text));
                 },
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
+                child: Icon(
+                  Icons.search,
+                  color: Colors.white60,
                 ),
               ),
-            ],
-          ),
+                    hintText: "search your manager",
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none),
+              ),
+            ),
+          ]),
         ),
       ),
-      body: BlocBuilder<ManagerBloc, ManagerState>(builder: (context, state) {
-        if (state is ManagerLoading) {
+      body: BlocBuilder<Search1Bloc, Search1State>(builder: (context, state) {
+        if (state is Search1Loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state is ManagerError) {
+        if (state is Search1Error) {
           return RefreshIndicator(
             onRefresh: () async {
-              return BlocProvider.of<ManagerBloc>(context).add(Fetchmanager());
             },
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -83,10 +84,10 @@ class _managerState extends State<manager> {
             ),
           );
         }
-        if (state is ManagerLoaded) {
-          managername = BlocProvider.of<ManagerBloc>(context).managermodel;
+        if (state is Search1Loaded) {
+          search1 = BlocProvider.of<Search1Bloc>(context).search1model;
           return ListView.builder(
-            itemCount: managername.data!.length,
+            itemCount: search1.data!.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: EdgeInsets.only(
@@ -106,34 +107,34 @@ class _managerState extends State<manager> {
                           height: 140,
                           width: 140,
                           child: Image.network(
-                              managername.data![index].photo.toString()),
+                              search1.data![index].photo.toString()),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "NAME  :  ${managername.data![index].name.toString()}",
+                              "NAME  :  ${search1.data![index].name.toString()}",
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
                                   color: Colors.brown),
                             ),
                             Text(
-                              "DATE OF BIRTH  : ${managername.data![index].dateBirth.toString()} ",
+                              "DATE OF BIRTH  : ${search1.data![index].dateBirth.toString()} ",
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
                                   color: Colors.brown),
                             ),
                             Text(
-                              "PERFORMANCE  : ${managername.data![index].performance.toString()} ",
+                              "PERFORMANCE  : ${search1.data![index].performance.toString()} ",
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
                                   color: Colors.brown),
                             ),
                             Text(
-                              "sportId  :  ${managername.data![index].sportId.toString()}",
+                              "sportId  :  ${search1.data![index].sportId.toString()}",
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
