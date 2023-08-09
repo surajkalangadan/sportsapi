@@ -16,7 +16,17 @@ class ApiClient {
     switch (method) {
       case "POST":
         response = await post(Uri.parse(url),
-            headers: { "X-RapidAPI-Key": "be9dc6febamsh9ad23224a55f4bcp11c770jsnc92f8e258579",
+            headers: {
+              "X-RapidAPI-Key":
+                  "be9dc6febamsh9ad23224a55f4bcp11c770jsnc92f8e258579",
+              'X-RapidAPI-Host': 'sportscore1.p.rapidapi.com'
+            },
+            body: body);
+        break;
+      case "POST1":
+        response = await post(Uri.parse(url),
+            headers: {
+              'X-RapidAPI-Key': 'be9dc6febamsh9ad23224a55f4bcp11c770jsnc92f8e258579',
               'X-RapidAPI-Host': 'sportscore1.p.rapidapi.com'
             },
             body: body);
@@ -50,8 +60,9 @@ class ApiClient {
         response = await get(
           Uri.parse(url),
           headers: {
-        'X-RapidAPI-Key': 'be9dc6febamsh9ad23224a55f4bcp11c770jsnc92f8e258579',
-        'X-RapidAPI-Host': 'sportscore1.p.rapidapi.com',
+            'X-RapidAPI-Key':
+                'be9dc6febamsh9ad23224a55f4bcp11c770jsnc92f8e258579',
+            'X-RapidAPI-Host': 'sportscore1.p.rapidapi.com',
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
@@ -59,18 +70,19 @@ class ApiClient {
 
         break;
 
-        case "GET1":
-      response = await get(
-        Uri.parse(url),
-        headers: {
-      'X-RapidAPI-Key': 'be9dc6febamsh9ad23224a55f4bcp11c770jsnc92f8e258579',
-      'X-RapidAPI-Host': 'sportscore1.p.rapidapi.com',
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      );
+      case "GET1":
+        response = await get(
+          Uri.parse(url),
+          headers: {
+            'X-RapidAPI-Key':
+                'be9dc6febamsh9ad23224a55f4bcp11c770jsnc92f8e258579',
+            'X-RapidAPI-Host': 'sportscore1.p.rapidapi.com',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        );
 
-      break;
+        break;
       case "PATCH":
         response = await patch(
           Uri.parse(url),

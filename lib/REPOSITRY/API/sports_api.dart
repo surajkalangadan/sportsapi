@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:sports/REPOSITRY/MODELCLASS/Managermodel.dart';
+import 'package:sports/REPOSITRY/MODELCLASS/Search1model.dart';
 import 'package:sports/REPOSITRY/MODELCLASS/Sportsmodel.dart';
 import 'package:sports/REPOSITRY/MODELCLASS/searchmodel.dart';
 import 'api_claint.dart';
@@ -28,9 +29,17 @@ class Sportsapi {
     String trendingpath =
         'https://sportscore1.p.rapidapi.com/managers?page=1';
     var body = {};
-    Response response = await apiClient.invokeAPI(trendingpath, 'GET', body);
+    Response response = await apiClient.invokeAPI(trendingpath, 'GET1', body);
 
     return Managermodel.fromJson(jsonDecode(response.body));
+  }
+  Future<Search1model> postsearch1model() async {g
+    String trendingpath =
+        'https://sportscore1.p.rapidapi.com/managers/search?page=1&name=Mikel&sport_id=1&nationality_code=ESP&locale=en';
+    var body = {};
+    Response response = await apiClient.invokeAPI(trendingpath, 'POST1', body);
+
+    return Search1model.fromJson(jsonDecode(response.body));
   }
 }
 
