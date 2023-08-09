@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sports/Bloc/manager%20bloc/mnager_bloc.dart';
 import 'package:sports/Bloc/search_bloc.dart';
 import 'package:sports/Bloc/sports_bloc.dart';
+import 'package:sports/ui/bottam.dart';
 import 'package:sports/ui/screen1.dart';
 
 void main() {
@@ -14,9 +16,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [BlocProvider(
-        create: (context) => SportsBloc()),BlocProvider(create: (context) => SearchBloc())],
-      child: MaterialApp(debugShowCheckedModeBanner: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SportsBloc()),
+        BlocProvider(create: (context) => SearchBloc()),
+        BlocProvider(create: (context) => ManagerBloc())
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
             // This is the theme of your application.
@@ -37,9 +44,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: screen1()
-      ),
+          home: bottam()),
     );
   }
 }
-

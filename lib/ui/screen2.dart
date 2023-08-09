@@ -167,6 +167,8 @@ class _screen2State extends State<screen2> {
           } else {
             return SizedBox();
           }
-        }));
+        }
+        ),
+    );
   }
 }
